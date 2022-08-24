@@ -14,7 +14,7 @@ namespace PenaltyProject.Models
         public string countrycurrency;
         public int penalty;
         public int tax;
-        
+
 
 
     }

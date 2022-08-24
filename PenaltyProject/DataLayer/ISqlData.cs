@@ -7,9 +7,8 @@ using PenaltyProject.Models;
 
 namespace PenaltyProject.DataLayer
 {
-    interface ISqlData
+    public interface ISqlData
     {
-        public void SqlDataHelper(IConfiguration config);
         public List<Country> GetCountries();
     }
 }
