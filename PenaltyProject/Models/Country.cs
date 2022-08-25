@@ -9,6 +9,7 @@ namespace PenaltyProject.Models
 {
     public class Country
     {
+        //Country Model
         public int countryId;
         public string countryName;
         public string countrycurrency;

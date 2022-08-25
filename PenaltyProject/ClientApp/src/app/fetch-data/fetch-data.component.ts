@@ -1,23 +1,27 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ConnectionService } from '../Services/connection.service';
+import { map } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-fetch-data',
   templateUrl: './fetch-data.component.html'
 })
 export class FetchDataComponent {
-  public forecasts: WeatherForecast[];
+  constructor(private interactionService: ConnectionService,private route: ActivatedRoute) {}
+  sub: any;
+  
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<WeatherForecast[]>(baseUrl + 'weatherforecast').subscribe(result => {
-      this.forecasts = result;
-    }, error => console.error(error));
-  }
+  daysPenalty:number[];
+  ngOnInit() {
+    this.sub = this.route.params.subscribe(param1 => {
+      this.sub=param1;
+    });
+
+  
+
+ 
 }
-
-interface WeatherForecast {
-  date: string;
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
 }

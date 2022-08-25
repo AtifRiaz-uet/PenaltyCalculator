@@ -7,7 +7,6 @@ namespace PenaltyProject.Models
 {
     public class SpecialDays
     {
-        string holidaySummary;
-        DateTime holidaydate = new DateTime();
+        public DateTime date { get; set; }
     }
 }

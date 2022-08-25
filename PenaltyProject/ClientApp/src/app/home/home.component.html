@@ -1,4 +1,6 @@
+
 <div>
+  <!-- Created ReactiveForm of Name Penaltyform -->
   <form [formGroup]="PenaltyForm" (ngSubmit)="onSubmit()">
 
 
@@ -10,16 +12,59 @@
     </div>
       <div class="mb-3">
         <label class="form-label">Check In Date</label>
-        <input type="date" class="form-control" formControlName="checkIn" />
+        <input type="datetime-local" class="form-control" formControlName="checkIn" min="2022-01-01T08:30"/>
+        <div>
+          <small style="color:red">Please Set Time as 12 : 00 AM If you think there is some public holiday between CheckIn and Return Dates</small>
+        </div>
       </div>
+      <!-- This will show checkOut Input after user input checkin -->
 
-      <div class="mb-3">
+      <div *ngIf="(PenaltyForm.get('checkIn'))?.valid">
+        <div class="mb-3">
         <label class="form-label">Return Date</label>
-        <input type="date" class="form-control" formControlName="return" />
+        <input type="datetime-local" class="form-control" formControlName="checkOut" min="2022-01-01T08:30" />
+        </div>
+        <!-- Adding Condition if checkIn is greater date than checkout -->
+        <div *ngIf="(PenaltyForm.get('checkIn').value) > (PenaltyForm.get('checkOut').value)">
+          <small style="color:red">The Return date Must be After Issue Date</small>
+
+        </div>
+
+      </div>
+<<<<<<< HEAD
+      <!-- It will show button when form is Valid -->
+      <div *ngIf="((PenaltyForm)?.valid) && ((PenaltyForm.get('checkOut').value) > (PenaltyForm.get('checkIn').value))">
+=======
+
+      <div *ngIf="((PenaltyForm)?.valid) && ((PenaltyForm.get('checkOut').value) >= (PenaltyForm.get('checkIn').value))">
+>>>>>>> 1d9721d5784e11f1c40e5b25a0ba66f28494d4c0
+        <button type="submit" class="btn btn-primary">Calculate Penalty</button>
+        
+
       </div>
 
-      <button type="submit" class="btn btn-primary">Submit</button>
+      
+
+      
 
 
   </form>
+
 </div>
+<!-- Showing Total Business Days After Pressing Button -->
+<div *ngIf="this.trigger">
+  <h4>Total Business Days: </h4>
+  {{this.daysPenlaty[0]}}
+  <h4>Penalty Price: </h4>
+  {{this.daysPenlaty[1]}}
+
+
+</div>
+<div>
+  <h3>Instructions</h3>
+    1- After 10 Business days there will be 50 Rs Penalty Per day for Pakistan Nationals.
+    <hr>
+    2- After 10 Business days there will be 1 AED Penalty Per day for UAE Nationals.
+  
+</div>
+

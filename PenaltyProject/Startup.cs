@@ -24,8 +24,8 @@ namespace PenaltyProject
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddScoped<ISqlData, SqlData>();
-            services.AddScoped < IPenaltyCalculator, PenaltyCalculator>();
+            services.AddScoped<ISqlData, SqlData>();//Adding Own Dependency Injection for DataLayer/SQLData 
+            services.AddScoped < IPenaltyCalculator, PenaltyCalculator>();//Adding Own Dependency Injection for BusinessLayer/PenalCalculator
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {

@@ -11,7 +11,7 @@ namespace PenaltyProject.DataLayer
 {
     public class SqlData : ISqlData
     {
-        //public List<Country> countriesList = new List<Country>();
+        //To make connection to database
 
         string conString = "";
         public SqlData(IConfiguration config)
@@ -19,20 +19,22 @@ namespace PenaltyProject.DataLayer
             conString = config.GetConnectionString("Connection");
         }
         
+        //This method will give away the list of countries Data
         public List<Country> GetCountries()
         {
-            List<Country> countriesList = new List<Country>();
-            SqlConnection con = new SqlConnection(conString);
+
+            List<Country> countriesList = new List<Country>();//Initializing
+            SqlConnection con = new SqlConnection(conString);//conString is given in appsettings.json file
             con.Open();
-            string query = "SELECT * FROM COUNTRYDATA";
+            string query = "SELECT * FROM COUNTRYDATA";//sql query to get all data
             SqlDataAdapter sda = new SqlDataAdapter(query, con);
-            DataTable countriesTable = new DataTable();
+            DataTable countriesTable = new DataTable();//Initialing new DataTable to store Data
             sda.Fill(countriesTable);
 
 
             for (int index = 0; index < countriesTable.Rows.Count; index++)
             {
-                Country country = new Country
+                Country country = new Country             //Making new Object of Country and Passing Data
                 {
                     countryId = Convert.ToInt32(countriesTable.Rows[index]["CountryID"]),
                     countryName = countriesTable.Rows[index]["CountryName"].ToString(),
@@ -46,36 +48,6 @@ namespace PenaltyProject.DataLayer
             con.Close();
             return countriesList;
         }
-
-        //public List<SpecialDays> GetSpecialDays()
-        //{
-        //    List<SpecialDays> specialDaysList = new List<SpecialDays>();
-        //    const string apiKey = "AIzaSyCkHEq9efc73mgl0k3Ib7wwI54Gle5hX3M";
-        //    const string pakCalendarID = "en-gb.pk#holiday@group.v.calendar.google.com";
-        //    const string uaeCalendarID = "en-gb.ae.official#holiday@group.v.calendar.google.com";
-
-
-        //    static async Task Main(string[] args)
-        //    {
-        //        Console.WriteLine("Just Checking");
-
-        //        var service = new CalendarService(new BaseClientService.Initializer()
-        //        {
-        //            ApiKey = apiKey,
-        //            ApplicationName = "API key Example"
-        //        });
-        //        var request = service.Events.List(pakCalendarID);
-        //        request.Fields = "items(summary,start,end)";
-        //        var response = await request.ExecuteAsync();
-        //        foreach (var item in response.Items)
-        //        {
-        //            Console.WriteLine($"Holiday: {item.Summary} start: {item.Start.Date} End: {item.End.Date}");
-        //        }
-        //        Console.ReadLine();
-
-
-        //    }
-        //}
 
 
     }

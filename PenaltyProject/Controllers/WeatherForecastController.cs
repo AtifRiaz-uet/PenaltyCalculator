@@ -40,9 +40,16 @@ namespace PenaltyProject.Controllers
              
             return CountriesName;
         }
-    
+        [Route("Post")]
+        [HttpPost]
+        public List<string> Post([FromBody] datesModel dates)
+        {
+            List<string> daysPenalty = _penalty.GetDays(dates);
+            return daysPenalty;
+        }
 
-        
-    
+
+
+
     }
 }
